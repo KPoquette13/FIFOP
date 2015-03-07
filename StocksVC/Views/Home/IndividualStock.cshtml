@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Individual Stocks";
+}
+
+<img src=@ViewBag.Image />
+
+<h2>Stock Description</h2>
+
+<div>
+   <table>
+       <tr>
+           <td>Stock Name</td>
+           <td>@ViewBag.StockName</td>
+       </tr>
+       <tr>
+           <td>Number Owned</td>
+           <td>@ViewBag.NumOwned</td>
+       </tr>
+       <tr>
+           <td>Price</td>
+           <td>@ViewBag.Price</td>
+       </tr>
+       <tr>
+           <td>Thoughts</td>
+           <td>@ViewBag.Thoughts</td>
+       </tr>
+       <tr>
+           <td>Total Bought</td>
+           <td>@ViewBag.TotalBought</td>
+       </tr>
+       <tr>
+           <td>Total Sold</td>
+           <td>@ViewBag.TotalSold</td>
+       </tr>
+   </table>
+</div>
+
+<button>Buy</button>
+<button>Sell</button>
+<input type="button" onclick="location.href='Index'" value="Back" style="float:right"/>
