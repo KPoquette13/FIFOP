@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,9 +11,29 @@ namespace StocksVC.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index(FacebookContext context)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var user = await context.Client.GetCurrentUserAsync<StocksVC.Models.User>();
+                return View(user);
+            }
+
+            return View("Error");
+        }
+
+        // This action will handle the redirects from FacebookAuthorizeFilter when
+        // the app doesn't have all the required permissions specified in the FacebookAuthorizeAttribute.
+        // The path to this action is defined under appSettings (in Web.config) with the key 
+        // 'Facebook:AuthorizationRedirectPath'.
+        public ActionResult Permissions(StocksVC.Models.FacebookRedirectContext context)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(context);
+            }
+
+            return View("Error");
         }
 
         public ActionResult AllStocks()
@@ -88,5 +111,72 @@ namespace StocksVC.Controllers
            }
             
         }
+       private string HttpPost(string pUrl, string pPostData)
+       {
+           HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(pUrl);
+           webRequest.ContentType = "application/x-www-form-urlencoded";
+           webRequest.Method = "POST";
+           byte[] bytes = System.Text.Encoding.UTF8.GetBytes(pPostData);
+           Stream requestWriter = webRequest.GetRequestStream(); //GetRequestStream
+           requestWriter.Write(bytes, 0, bytes.Length);
+           requestWriter.Close();
+
+           Stream responseStream = null;
+           StreamReader responseReader = null;
+           string responseData = "";
+           try
+           {
+               WebResponse webResponse = webRequest.GetResponse();
+               responseStream = webResponse.GetResponseStream();
+               responseReader = new StreamReader(responseStream);
+               responseData = responseReader.ReadToEnd();
+           }
+           catch (Exception exc)
+           {
+               throw new Exception("could not post : " + exc.Message);
+           }
+           finally
+           {
+               if (responseStream != null)
+               {
+                   responseStream.Close();
+                   responseReader.Close();
+               }
+           }
+
+           return responseData;
+       }
+       private string RequestResponse(string pUrl)
+       {
+           HttpWebRequest webRequest = System.Net.WebRequest.Create(pUrl) as HttpWebRequest;
+           webRequest.Method = "GET";
+           webRequest.ServicePoint.Expect100Continue = false;
+           webRequest.Timeout = 20000;
+
+           Stream responseStream = null;
+           StreamReader responseReader = null;
+           string responseData = "";
+           try
+           {
+               WebResponse webResponse = webRequest.GetResponse();
+               responseStream = webResponse.GetResponseStream();
+               responseReader = new StreamReader(responseStream);
+               responseData = responseReader.ReadToEnd();
+           }
+           catch (Exception exc)
+           {
+               Response.Write("<br /><br />ERROR : " + exc.Message);
+           }
+           finally
+           {
+               if (responseStream != null)
+               {
+                   responseStream.Close();
+                   responseReader.Close();
+               }
+           }
+
+           return responseData;
+       }
     }
 }

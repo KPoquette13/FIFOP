@@ -2,21 +2,34 @@
     ViewBag.Title = "Index.cshtml";
 }
 
-<div class="mainPage">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="Images\march-calendar-2015.png" width="360" height="271">
+            <h1>Upcoming Events</h1>
+        </div>
+        <div class="col-lg-4">
+            <textarea style="width: 30%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
+            <button type="submit" class="btn btn-success">Post</button>
+            <h1>Newsfeed</h1>
+            <div class="newsfeed">
 
-    <div class="leftPanel">
-        <p>Calendar</p>
-
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <p>Top Stocks</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Stock Name</th>
+                        <th>Price</th>
+                        <th>Shares</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <p class="link">@Html.ActionLink("View More Stock Info...", "AllStocks", "Home")</p>
+            <h1>Friends</h1>
+        </div>
     </div>
-
-    <div class="newsfeed">
-
-    </div>
-
-    <div class="rightPanel">
-        <p>Top Stocks</p>
-
-        <p class="link">@Html.ActionLink("View More Stock Info...", "AllStocks", "Home" )</p>
-    </div>
-
 </div>
