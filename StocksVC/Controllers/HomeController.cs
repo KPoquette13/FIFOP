@@ -36,7 +36,14 @@ namespace StocksVC.Controllers
         {
             return View();
         }
-
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
         public ActionResult IndividualStock(String ticker)
         {
             ViewBag.Image = getStockUrl(ticker);
