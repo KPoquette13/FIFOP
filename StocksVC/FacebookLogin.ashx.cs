@@ -14,7 +14,7 @@ namespace StocksVC
             var accessToken = context.Request["accessToken"];
             context.Session["AccessToken"] = accessToken;
 
-            context.Response.Redirect("/Index");
+            context.Response.Redirect("/Home/Index");
         }
 
         public bool IsReusable

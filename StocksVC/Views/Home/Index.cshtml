@@ -2,30 +2,40 @@
     ViewBag.Title = "Index.cshtml";
 }
 <script>
-var homeController = new HomeController();
-if (homeController.getId() == null){
-    @{Response.Redirect("~/Home/Login");}
-}
-else{
-    homeController.RetrieveMyFeedsFromFacebook();
-}
+    window.fbAsyncInit = function() {
+    FB.init({
+        appId: '525344350942089',
+        xfbml      : true,
+        version    : 'v2.2'
+    });
+};
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    })
 </script>
 <div class=" = container">
+
     <div class="row">
-        <div class="col-lg-3">
-            <img src="~Images\march-calendar-2015.png" style="width:30%; height:30%">
+        <div class="col-md-3">
+            <img src="~Images\march-calendar-2015.png" style="width:25%; height:25%">
             <h2>Upcoming Events</h2>
         </div>
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <textarea style="width: 30%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
             <button type="submit" class="btn btn-success">Post</button>
             <h2>Newsfeed</h2>
             <div class="newsfeed">
-
+               <script>FB.api('/me/feed', 'get');</script> 
 
             </div>
         </div>
-        <div class="col-lg-3">
+
+        <div class="col-md-3">
             <h2>Top Stocks</h2>
             <table class="table table-striped" style="width:30%; height:30%">
                 <thead>

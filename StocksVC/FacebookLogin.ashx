@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="FacebookLogin.ashx.cs" Class="StocksVC.Handler1" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="FacebookLogin.ashx.cs" Class="StocksVC.FacebookLogin" %>
