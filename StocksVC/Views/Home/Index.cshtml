@@ -2,8 +2,13 @@
     ViewBag.Title = "Index.cshtml";
 }
 
-<div class="container">
-    <div class="row">
+var homeController = new HomeController();
+if (homeController.getId() == null){
+    @{Response.Redirect("~/Home/Login");}
+}
+else(){
+    homeController.RetrieveMyFeedsFromFacebook();
+}
         <div class="col-lg-4">
             <img src="Images\march-calendar-2015.png" width="360" height="271">
             <h1>Upcoming Events</h1>
@@ -13,6 +18,7 @@
             <button type="submit" class="btn btn-success">Post</button>
             <h1>Newsfeed</h1>
             <div class="newsfeed">
+
 
             </div>
         </div>
@@ -31,5 +37,3 @@
             <p class="link">@Html.ActionLink("View More Stock Info...", "AllStocks", "Home")</p>
             <h1>Friends</h1>
         </div>
-    </div>
-</div>

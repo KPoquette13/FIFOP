@@ -6,34 +6,30 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Facebook;
 
 namespace StocksVC.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index(FacebookContext context)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await context.Client.GetCurrentUserAsync<StocksVC.Models.User>();
-                return View(user);
-            }
+        private string accessToken;
+        private FacebookClient client;
+        private dynamic result;
+        private string name;
+        private string id;
 
-            return View("Error");
+        public void getUserInfo()
+        {
+            accessToken = Session["AccessToken"].ToString();
+            client = new FacebookClient(accessToken);
+            result = client.Get("me", new { fields = "name,id" });
+            name = result.name;
+            id = result.id;
         }
 
-        // This action will handle the redirects from FacebookAuthorizeFilter when
-        // the app doesn't have all the required permissions specified in the FacebookAuthorizeAttribute.
-        // The path to this action is defined under appSettings (in Web.config) with the key 
-        // 'Facebook:AuthorizationRedirectPath'.
-        public ActionResult Permissions(StocksVC.Models.FacebookRedirectContext context)
+        public string getId()
         {
-            if (ModelState.IsValid)
-            {
-                return View(context);
-            }
-
-            return View("Error");
+            return id;
         }
 
         public ActionResult AllStocks()
@@ -177,6 +173,31 @@ namespace StocksVC.Controllers
            }
 
            return responseData;
+       }
+
+       private void RetrieveMyFeedsFromFacebook()
+       {
+           var fb = new FacebookClient(accessToken);
+           string details = "";
+           try
+           {
+               fb.GetCompleted +=
+               (o, e) =>
+               {
+                   if (e.Error == null)
+                   {
+                       var result = (IDictionary<string, object>)e.GetResultData();
+                       //Dispatcher.BeginInvoke(() => lbFeeds.ItemsSource = details);
+                   }
+                   else
+                   {
+                   }
+               };
+               fb.GetTaskAsync("/me/feed");
+           }
+           catch (FacebookApiException ex)
+           {
+           }
        }
     }
 }

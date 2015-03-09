@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
+using Facebook;
 
 namespace StocksVC.Models
 {
@@ -95,13 +96,5 @@ namespace StocksVC.Models
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
     }
-    public class FacebookRedirectContext
-    {
-        public FacebookRedirectContext();
 
-        public FacebookConfiguration Configuration { get; set; }
-        public string OriginUrl { get; set; }
-        public string RedirectUrl { get; set; }
-        public string[] RequiredPermissions { get; set; }
-    }
 }
