@@ -1,4 +1,7 @@
 ﻿@{
+       Layout = "~/Views/Shared/_Layout.cshtml"
+}
+@{
     ViewBag.Title = "Index.cshtml";
 }
 <script>
@@ -18,15 +21,15 @@
         fjs.parentNode.insertBefore(js, fjs);
     })
 </script>
-<div class=" = container">
+<div class="container">
 
     <div class="row">
         <div class="col-md-3">
-            <img src="~Images\march-calendar-2015.png" style="width:25%; height:25%">
+            <img src="~/Images/march-calendar-2015.png">
             <h2>Upcoming Events</h2>
         </div>
         <div class="col-md-6">
-            <textarea style="width: 30%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
+            <textarea style="width: 100%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
             <button type="submit" class="btn btn-success">Post</button>
             <h2>Newsfeed</h2>
             <div class="newsfeed">
@@ -37,10 +40,10 @@
 
         <div class="col-md-3">
             <h2>Top Stocks</h2>
-            <table class="table table-striped" style="width:30%; height:30%">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Stock Name</th>
+                        <th>Name</th>
                         <th>Price</th>
                         <th>Shares</th>
                     </tr>

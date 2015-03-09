@@ -98,6 +98,7 @@ p {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
+    
 }
 
 #body {
@@ -108,6 +109,7 @@ p {
 
     .main-content {
         padding-left: 10px;
+        padding-top: 20px;
     }
 
     .featured + .main-content {
@@ -129,7 +131,8 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    width: 100%;
+    max-width: 300px;
     height: 100%;
     padding-bottom:50px;
 }
