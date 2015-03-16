@@ -24,34 +24,31 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" id="index">
+            <h2>Calendar</h2>
             <img src="~/Images/march-calendar-2015.png">
-            <h2>Upcoming Events</h2>
         </div>
+
         <div class="col-md-6">
-            <textarea style="width: 100%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
-            <button type="submit" class="btn btn-success">Post</button>
             <h2>Newsfeed</h2>
+            <textarea style="height: 60px; width: 100%; padding: 4px; margin-bottom: 5px;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
+            <button type="submit" class="btn btn-success">Post</button>
             <div class="newsfeed">
                <script>FB.api('/me/feed', 'get');</script> 
-
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" id="index">
             <h2>Top Stocks</h2>
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Shares</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Shares</th>
+                </tr>
             </table>
             <p class="link">@Html.ActionLink("View More Stock Info...", "AllStocks", "Home")</p>
-            <h2>Friends</h2>
         </div>
+
     </div>
 </div>

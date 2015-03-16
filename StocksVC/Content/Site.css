@@ -71,6 +71,7 @@ h1 {
 
 h2 {
     font-size: 1.75em;
+    padding-bottom: 20px;
 }
 
 h3 {
@@ -103,7 +104,8 @@ p {
 }
 
 #body {
-    background-color: #efeeef;
+    /*background-color: #efeeef;*/
+    background-color: white;
     clear: both;
     padding-bottom: 35px;
 }
@@ -167,6 +169,9 @@ div .rightPanel {
         font-size: 1em;
     }
 
+#index {
+    border: 1px solid #e2e2e2;
+}
 
 /* site title
 ----------------------------------------------------------*/
@@ -227,8 +232,7 @@ div .rightPanel {
 }
 
 ul#menu {
-    font-size: 1.3em;
-    font-weight: 600;
+    font-size: 2em;
     margin: 0 0 40px;
     padding: 0;
     text-align: right;
