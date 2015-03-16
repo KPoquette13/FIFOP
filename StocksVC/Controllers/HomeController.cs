@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Facebook;
+using System.Xml;
 
 namespace StocksVC.Controllers
 {
@@ -17,6 +18,7 @@ namespace StocksVC.Controllers
         private dynamic result;
         private string name;
         private string id;
+        private string price;
 
         public void getUserInfo()
         {
@@ -46,13 +48,28 @@ namespace StocksVC.Controllers
         }
         public ActionResult IndividualStock(String ticker)
         {
-            ViewBag.Image = getStockUrl(ticker);
+            ViewBag.Image = getStockChart(ticker);
             ViewBag.Ticker = ticker;
 
             return View();
         }
 
-        public String getStockUrl(String ticker)
+        public void getStockData(String ticker)
+        {
+            String url = "http://dev.markitondemand.com/Api/v2/Quote/xml?symbol=";
+            url += ticker;
+            String response = RequestResponse(url);
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(response);
+
+            //Getting Stock Price
+            XmlNode lastPrice = xmlDoc.SelectSingleNode("/StockQuote/LastPrice");
+            price = lastPrice.InnerText;
+
+            getStockInfo(ticker);
+        }
+
+        public String getStockChart(String ticker)
         {
             String time = "6m";
             String type = "l";
@@ -65,17 +82,17 @@ namespace StocksVC.Controllers
 
             ViewBag.StockName = ticker;
 
-            getStockInfo(ticker);
+            getStockData(ticker);
 
             return url;
         }
 
        public void getStockInfo(String ticker)
-        {
+        {            
            if (ticker == "AAPL")
            {
                @ViewBag.NumOwned = "4";
-               @ViewBag.Price = "$113.70";
+               @ViewBag.Price = "$" + price;
                @ViewBag.Thoughts = "Sell In June.";
                @ViewBag.TotalBought = "7";
                @ViewBag.TotalSold = "3";
@@ -83,7 +100,7 @@ namespace StocksVC.Controllers
            else if (ticker == "MSFT")
            {
                @ViewBag.NumOwned = "8";
-               @ViewBag.Price = "$86.90";
+               @ViewBag.Price = "$" + price;
                @ViewBag.Thoughts = "Buy More Soon.";
                @ViewBag.TotalBought = "8";
                @ViewBag.TotalSold = "0";
@@ -91,15 +108,15 @@ namespace StocksVC.Controllers
            else if (ticker == "GOOG")
            {                            
                @ViewBag.NumOwned = "10";
-               @ViewBag.Price = "$500.00";          
+               @ViewBag.Price = "$" + price;          
                @ViewBag.Thoughts = "Split Stocks.";
                @ViewBag.TotalBought = "13";
                @ViewBag.TotalSold = "3";
            }
            else if (ticker == "FB")
            {
-               @ViewBag.NumOwned = "5"; 
-               @ViewBag.Price = "$60.70";
+               @ViewBag.NumOwned = "5";
+               @ViewBag.Price = "$" + price;
                @ViewBag.Thoughts = "Buy When Down";
                @ViewBag.TotalBought = "5";
                @ViewBag.TotalSold = "0";
@@ -107,7 +124,7 @@ namespace StocksVC.Controllers
            else if (ticker == "WMT")
            {
                @ViewBag.NumOwned = "2";
-               @ViewBag.Price = "$20.70";
+               @ViewBag.Price = price;
                @ViewBag.Thoughts = "Sell Soon!";
                @ViewBag.TotalBought = "7";
                @ViewBag.TotalSold = "5";
