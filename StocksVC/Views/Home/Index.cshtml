@@ -20,6 +20,7 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     })
+    FB.api('/me/feed', 'get');
 </script>
 <div class="container">
 
@@ -34,7 +35,6 @@
             <textarea style="height: 60px; width: 100%; padding: 4px; margin-bottom: 5px;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
             <button type="submit" class="btn btn-success">Post</button>
             <div class="newsfeed">
-               <script>FB.api('/me/feed', 'get');</script> 
             </div>
         </div>
 
