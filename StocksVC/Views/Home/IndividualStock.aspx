@@ -2,9 +2,10 @@
     ViewBag.Title = "Individual Stocks";
 }
 
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="IndividualStock.aspx.cs" Inherits="IndividualStock" %>
+
 <script type="text/javascript">
-    function showDialog()
-    {
+    function showDialog() {
         var dialog = $(".modal-dialog").dialog({
             autoOpen: false,
             height: 300,
@@ -13,8 +14,7 @@
         dialog.dialog("open");
     }
 
-    function closeDialog()
-    {
+    function closeDialog() {
         $(".modal-dialog").hide();
     }
 
@@ -25,7 +25,7 @@
         <h1>Stock Description</h1>
     </div>
     <div class="col-lg-12">
-        <img src=@ViewBag.Image class="image-rounded"/>
+        <img src=@ViewBag.Image class="image-rounded" />
     </div>
     <div class="col-lg-6 col-lg-offset-3">
         <div>
@@ -78,25 +78,25 @@
         </div>
         <div class="modal-body">
             <p class="validateTips">All form fields are required.</p>
-            <form role="form">
+            <form role="form" id="form1" runat="server">
                 <div class="form-group">
                     <label for="name">Stock Name:</label>
                     <input type="text" name="name" id="name" value=@ViewBag.StockName class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="price">Stock Price:</label>
-                    <input type="text" name="price" id="price" value=@ViewBag.Price class="form-control">
+                    <p> @ViewBag.Price </p>
                 </div>
                 <div class="form-group">
                     <label for="quantity">Quantity:</label>
-                    <input type="number"/>
+                    <asp:textbox id="quantity" runat="server"></asp:textbox>
                 </div>
             </form>
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-sm">Save</button>
-            <button type="button" id="cancel" class="btn btn-default btn-sm" data-dismiss="modal" onclick="closeDialog();">Close</button>
+            <asp:button id="Button1" runat="server" onclick="Button1_Click" text="Buy" />
+            <asp:button id="Button2" runat="server" onclick="Button1_Click" text="Cancel" /> 
         </div>
     </div>
 </div>
