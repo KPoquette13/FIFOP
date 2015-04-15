@@ -2,21 +2,20 @@
     ViewBag.Title = "Individual Stocks";
 }
 
-<script type="text/javascript">
-    function showDialog() {
-        var dialog = $(".modal-dialog").dialog({
-            autoOpen: false,
-            height: 300,
-            width: 500,
-        });
-        dialog.dialog("open");
+<style>
+    #buy-modal-container, #sell-modal-container {
+        height: 400px;
+        width: 500px;
+        background-color: white;
+        margin-left: 30%;
     }
 
-    function closeDialog() {
-        $(".modal-dialog").hide();
+    #buy_quantity, #sell_quantity {
+        width: 200px;
     }
 
-</script>
+</style>
+
 
 <div class="row">
     <div class="col-lg-6 col-lg-offset-2">
@@ -55,46 +54,74 @@
             </table>
         </div>
     </div>
-    <div class="col-lg-8 col-lg-offset-3">
+    <div class="col-md-8 col-md-offset-3">
         <div class="col-md-2">
-            <input type="button" onclick="showDialog();" class="btn btn-primary" role="button" value="Buy" />
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buy-modal-container">Buy</button>
         </div>
         <div class="col-md-2">
-            <input type="button" class="btn btn-primary" role="button" value="Sell" />
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sell-modal-container">Sell</button>
         </div>
         <div class="col-md-2 col-md-offset-2">
-            <input type="button" onclick="location.href='Index'" class="btn btn-default" role="button" value="Back" />
+            <button type="button" onclick="location.href='Index'" class="btn btn-default">Back</button>
         </div>
     </div>
 </div>
 
-<div class="modal-dialog" style="display:none">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3 class="modal-title">Buy New Stocks</h3>
-        </div>
-        <div class="modal-body">
-            <p class="validateTips">All form fields are required.</p>
-            <form role="form" id="form1">
-                <div class="form-group">
-                    <label for="name">Stock Name:</label>
-                    <p> @ViewBag.StockName </p>
-                </div>
-                <div class="form-group">
-                    <label for="price">Stock Price:</label>
-                    <p> @ViewBag.Price </p>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity:</label>
-                    <input type="text" name="quantity" id="quantity" class="form-control">
-                </div>
-            </form>
 
-        </div>
-        <div class="modal-footer">
-            <input type="button" class="btn btn-primary" role="button" value="Buy" />
-            <input type="button" class="btn btn-secondary" role="button" value="Cancel" />
-        </div>
+<div id="buy-modal-container" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title">Buy New Stocks</h2>
+    </div>
+    <div class="modal-body">
+        <p class="validateTips">All form fields are required.</p>
+        <form role="form" id="form1">
+            <div class="form-group">
+                <label for="buy_name">Stock Name:</label>
+                <p> @ViewBag.StockName </p>
+            </div>
+            <div class="form-group">
+                <label for="buy_price">Stock Price:</label>
+                <p> @ViewBag.Price </p>
+            </div>
+            <div class="form-group">
+                <label for="buy_quantity">Quantity:</label>
+                <input type="text" name="quantity" id="buy_quantity" class="form-control">
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="Button_Click">Buy</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+</div>
+
+<div id="sell-modal-container" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title">Sell Stocks</h2>
+    </div>
+    <div class="modal-body">
+        <p class="validateTips">All form fields are required.</p>
+        <form role="form" id="form1">
+            <div class="form-group">
+                <label for="sell_name">Stock Name:</label>
+                <p> @ViewBag.StockName </p>
+            </div>
+            <div class="form-group">
+                <label for="sell_price">Stock Price:</label>
+                <p> @ViewBag.Price </p>
+            </div>
+            <div class="form-group">
+                <label for="sell_quantity">Quantity:</label>
+                <input type="text" name="quantity" id="sell_quantity" class="form-control">
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Sell</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
     </div>
 </div>
