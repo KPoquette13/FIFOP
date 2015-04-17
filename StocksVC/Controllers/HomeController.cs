@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Facebook;
 using System.Xml;
+using StocksVC.Models;
 
 namespace StocksVC.Controllers
 {
@@ -36,7 +37,10 @@ namespace StocksVC.Controllers
 
         public ActionResult AllStocks()
         {
-            return View();
+
+            var entities = new StocksDBEntities();
+
+            return View(entities.StockInfos.ToList());
         }
         public ActionResult Index()
         {
@@ -46,12 +50,19 @@ namespace StocksVC.Controllers
         {
             return View();
         }
+
         public ActionResult IndividualStock(String ticker)
         {
+            ViewBag.Ticker = ticker;           
             ViewBag.Image = getStockChart(ticker);
-            ViewBag.Ticker = ticker;
 
-            return View();
+            var entities = new StocksDBEntities();
+            
+            var stock = from item in entities.StockInfos 
+                        where item.StockName.Equals(ticker)
+                        select item;
+            
+            return View(stock.ToList());
         }
 
         public void getStockData(String ticker)
