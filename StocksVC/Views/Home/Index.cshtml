@@ -22,12 +22,13 @@
     })
     FB.api('/me/feed', 'get');
 </script>
-<div class="container">
+<div class="container-fluid">
 
     <div class="row">
         <div class="col-md-3" id="index">
             <h2>Calendar</h2>
             <img src="~/Images/march-calendar-2015.png">
+            <p class="link">@Html.ActionLink("View Calendar", "Calendar", "Home")</p>
         </div>
 
         <div class="col-md-6">

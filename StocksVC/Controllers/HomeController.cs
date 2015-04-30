@@ -99,6 +99,11 @@ namespace StocksVC.Controllers
             return url;
         }
 
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
        private string HttpPost(string pUrl, string pPostData)
        {
            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(pUrl);
