@@ -55,17 +55,19 @@ namespace StocksVC.Controllers
         {
             ViewBag.Ticker = ticker;           
             ViewBag.Image = getStockChart(ticker);
+            ViewBag.StockPrice = getStockData(ticker);
 
             var entities = new StocksDBEntities();
             
             var stock = from item in entities.StockInfos 
                         where item.StockName.Equals(ticker)
                         select item;
-            
+
             return View(stock.ToList());
+
         }
 
-        public void getStockData(String ticker)
+        public String getStockData(String ticker)
         {
             String url = "http://dev.markitondemand.com/Api/v2/Quote/xml?symbol=";
             url += ticker;
@@ -76,8 +78,7 @@ namespace StocksVC.Controllers
             //Getting Stock Price
             XmlNode lastPrice = xmlDoc.SelectSingleNode("/StockQuote/LastPrice");
             price = lastPrice.InnerText;
-
-            getStockInfo(ticker);
+            return price;
         }
 
         public String getStockChart(String ticker)
@@ -98,50 +99,6 @@ namespace StocksVC.Controllers
             return url;
         }
 
-       public void getStockInfo(String ticker)
-        {            
-           if (ticker == "AAPL")
-           {
-               @ViewBag.NumOwned = "4";
-               @ViewBag.Price = "$" + price;
-               @ViewBag.Thoughts = "Sell In June.";
-               @ViewBag.TotalBought = "7";
-               @ViewBag.TotalSold = "3";
-           }
-           else if (ticker == "MSFT")
-           {
-               @ViewBag.NumOwned = "8";
-               @ViewBag.Price = "$" + price;
-               @ViewBag.Thoughts = "Buy More Soon.";
-               @ViewBag.TotalBought = "8";
-               @ViewBag.TotalSold = "0";
-           }
-           else if (ticker == "GOOG")
-           {                            
-               @ViewBag.NumOwned = "10";
-               @ViewBag.Price = "$" + price;          
-               @ViewBag.Thoughts = "Split Stocks.";
-               @ViewBag.TotalBought = "13";
-               @ViewBag.TotalSold = "3";
-           }
-           else if (ticker == "FB")
-           {
-               @ViewBag.NumOwned = "5";
-               @ViewBag.Price = "$" + price;
-               @ViewBag.Thoughts = "Buy When Down";
-               @ViewBag.TotalBought = "5";
-               @ViewBag.TotalSold = "0";
-           }
-           else if (ticker == "WMT")
-           {
-               @ViewBag.NumOwned = "2";
-               @ViewBag.Price = price;
-               @ViewBag.Thoughts = "Sell Soon!";
-               @ViewBag.TotalBought = "7";
-               @ViewBag.TotalSold = "5";
-           }
-            
-        }
        private string HttpPost(string pUrl, string pPostData)
        {
            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(pUrl);
