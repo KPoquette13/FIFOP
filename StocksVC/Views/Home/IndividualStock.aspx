@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<StocksVC.Models.StockInfo>>" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<StocksVC.Models.StockInfo>>" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -39,11 +39,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><%: Html.DisplayNameFor(model => model.Price) %> </td>
-                        <td><% var price = Html.DisplayFor(model => item.Price);
-                               ViewBag.Price = price; %> 
-                            <%= price %>
-                        </td> 
+                        <td>Current Price</td>
+                        <td><%= "$" + ViewBag.StockPrice %> </td> 
                     </tr>
                     <tr>
                         <td><%: Html.DisplayNameFor(model => model.Thoughts) %></td>
@@ -69,6 +66,10 @@
                              <%= owned %>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Average Price</td>
+                        <td> $0.00 </td>
+                    </tr>
                     
                     <% } %> 
                 </table>
@@ -93,28 +94,32 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h2 class="modal-title">Buy New Stocks</h2>
         </div>
-        <form role="form" id="form1" runat="server">
+        <% using(Html.BeginForm()) { %>
+        <form role="form" id="form1" method="post" runat="server">
+            <% foreach (var item in Model)
+              { %>
             <div class="modal-body">
                 <p class="validateTips">All form fields are required.</p>
-                    <div class="form-group">
-                        <label for="buy_name">Stock Name:</label>
-                        <p> <%= ViewBag.StockName %> </p>
-                    </div>
-                    <div class="form-group">
-                        <label for="buy_price">Stock Price:</label>
-                        <p> <%= ViewBag.Price %></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="buy_quantity">Quantity:</label>
-                        <input type="text" name="quantity" id="buy_quantity" class="form-control">
-                    </div>
-
+                <div class="form-group">
+                    <label for="buy_name">Stock Name:</label>
+                    <% Html.EditorFor(model => item.StockName, new { htmlAttributes = new { @class = "form-control" }, }); %>
+                </div>
+                <div class="form-group">
+                    <label for="buy_price">Stock Price:</label>
+                    <p><%= ViewBag.StockPrice %></p>
+                </div>
+                <div class="form-group">
+                    <label for="buy_quantity">Quantity:</label>
+                    <% Html.EditorFor(model => item.TotalBought, "NumberField"); %>
+                </div>
             </div>
             <div class="modal-footer">
-                <asp:Button ID="Button2" class="btn btn-primary" type="button" runat="server" Text="Buy" />
+                <input id="buy_stock" class="btn btn-primary" type="submit" value="Buy"/>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
             </div>
+            <% } %>
         </form>
+        <% } %>
     </div>
 
     <div id="sell-modal-container" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -127,11 +132,11 @@
             <form role="form" id="form2">
                 <div class="form-group">
                     <label for="sell_name">Stock Name:</label>
-                    <p> <%= ViewBag.StockName %> </p>
+                    <input type="text" name="stockName" class="form-control" value="<%= ViewBag.StockName %>" />
                 </div>
                 <div class="form-group">
                     <label for="sell_price">Stock Price:</label>
-                    <p> <%= ViewBag.Price %> </p>
+                    <p> <%= ViewBag.StockPrice %> </p>
                 </div>
                 <div class="form-group">
                     <label for="sell_quantity">Quantity:</label>

@@ -5,24 +5,37 @@
 </asp:Content>
 
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="BodyContent">
-        <div class="col-lg-8 col-lg-offset-2">
 
+        <div class="col-lg-3 col-lg-offset-2" id="index">
+            <form role="form" method="get" action="Action.asp" style="padding-bottom:20px;">
+                <h2>Stock Lookup</h2>
+                <label for="stock_name"><p>Stock Name:</p></label> 
+                <input id="stock_name" type="search" /> 
+                <button id="btnSubmitSearch" class="btn btn-primary" style="width:50%;" type="button" onclick="SubmitForm">GO</button>
+            </form>
+        </div>
+
+        <div class="col-lg-6" id="index">
+            <h2>Owned Stocks</h2>
             <table class="table table-striped table-bordered table-condensed">
                 <tr>
                     <th>
-                        <p><%: Html.DisplayNameFor(model => model.StockName) %> </p>
+                        <%: Html.DisplayNameFor(model => model.StockName) %>
                     </th>
                     <th>
-                        <p><%: Html.DisplayNameFor(model => model.Price) %> </p>
+                        <%: Html.DisplayNameFor(model => model.Price) %>
                     </th>
                     <th>
-                        <p><%: Html.DisplayNameFor(model => model.Thoughts) %> </p>
+                        <%: Html.DisplayNameFor(model => model.Thoughts) %>
                     </th>
                     <th>
-                        <p><%: Html.DisplayNameFor(model => model.TotalBought) %> </p>
+                        <%: Html.DisplayNameFor(model => model.TotalBought) %>
                     </th>
                     <th>
-                        <p><%: Html.DisplayNameFor(model => model.TotalSold) %> </p>
+                        <%: Html.DisplayNameFor(model => model.TotalSold) %>
+                    </th>
+                    <th>
+                        Action
                     </th>
                 </tr>
 
@@ -31,19 +44,22 @@
                 <tr>
                     <td>
                         <% var name = Html.DisplayFor(modelItem => item.StockName).ToString(); %>
-                        <p> <%= Html.ActionLink(name, "IndividualStock", new { ticker = name }) %> </p>
+                        <%= name %>
                     </td>
                     <td>
-                        <p><%: Html.DisplayFor(modelItem => item.Price)%> </p>
+                        <%: Html.DisplayFor(modelItem => item.Price)%>
                     </td>
                     <td>
-                        <p><%: Html.DisplayFor(modelItem => item.Thoughts)%> </p>
+                        <%: Html.DisplayFor(modelItem => item.Thoughts)%>
                     </td>
                     <td>
-                        <p><%: Html.DisplayFor(modelItem => item.TotalBought)%> </p>
+                        <%: Html.DisplayFor(modelItem => item.TotalBought)%>
                     </td>
                     <td>
-                        <p><%: Html.DisplayFor(modelItem => item.TotalSold)%> </p>
+                        <%: Html.DisplayFor(modelItem => item.TotalSold)%> 
+                    </td>
+                    <td>
+                        <%= Html.ActionLink("View", "IndividualStock", new { ticker = name })%>
                     </td>
                 </tr>
                 <% } %>
