@@ -100,7 +100,7 @@ p {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
-    
+    padding-bottom: -5px;
 }
 
 #body {
@@ -682,7 +682,6 @@ td {
     padding-right: 8px;
     padding-top: 8px;
     vertical-align: top;
-    width: 208px;
 }
 
 tr {

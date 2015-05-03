@@ -11,7 +11,7 @@
                 <h2>Stock Lookup</h2>
                 <label for="stock_name"><p>Stock Name:</p></label> 
                 <input id="stock_name" type="search" /> 
-                <button id="btnSubmitSearch" class="btn btn-primary" style="width:50%;" type="button" onclick="SubmitForm">GO</button>
+                <button class="btn btn-primary" style="width:50%;" type="button" onclick="SubmitForm">GO</button>
             </form>
         </div>
 

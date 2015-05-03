@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input id="buy_stock" class="btn btn-primary" type="submit" value="Buy"/>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Buy</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
             </div>
             <% } %>
