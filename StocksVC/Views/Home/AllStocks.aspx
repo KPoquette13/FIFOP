@@ -5,13 +5,23 @@
 </asp:Content>
 
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="BodyContent">
+        <script>
+            $(document).ready(function () {
+                $('input[name="stock_name"]').change(function () {
+                    $('#stockSearch').click(function () {
+                        location.href = '/Home/IndividualStock?ticker=' +
+                        $('input[name="stock_name"]').val();
+                    });
+                });
+            });
+        </script>
 
         <div class="col-lg-3 col-lg-offset-2" id="index">
-            <form role="form" method="get" action="Action.asp" style="padding-bottom:20px;">
+            <form role="form" style="padding-bottom:20px;">
                 <h2>Stock Lookup</h2>
                 <label for="stock_name"><p>Stock Name:</p></label> 
-                <input id="stock_name" type="search" /> 
-                <button class="btn btn-primary" style="width:50%;" type="button" onclick="SubmitForm">GO</button>
+                <input type="text"name="stock_name" /> 
+                <button id="stockSearch" class="btn btn-primary" style="width:50%;" type="button">GO</button>
             </form>
         </div>
 

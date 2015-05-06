@@ -19,7 +19,7 @@ namespace StocksVC.Controllers
         private dynamic result;
         private string name;
         private string id;
-        private string price;
+        private StocksDBEntities entities;
 
         public void getUserInfo()
         {
@@ -37,14 +37,15 @@ namespace StocksVC.Controllers
 
         public ActionResult AllStocks()
         {
-
-            var entities = new StocksDBEntities();
+            entities = new StocksDBEntities();
 
             return View(entities.StockInfos.ToList());
         }
         public ActionResult Index()
         {
-            return View();
+            entities = new StocksDBEntities();
+
+            return View(entities.StockInfos.ToList());
         }
         public ActionResult Login()
         {
@@ -55,7 +56,10 @@ namespace StocksVC.Controllers
         {
             ViewBag.Ticker = ticker;           
             ViewBag.Image = getStockChart(ticker);
-            ViewBag.StockPrice = getStockData(ticker);
+            ViewBag.StockPrice = getStockData("price", ticker);
+            ViewBag.StockFullName = getStockData("name", ticker);
+            ViewBag.StockHigh = getStockData("high", ticker);
+            ViewBag.StockLow = getStockData("low", ticker);
 
             var entities = new StocksDBEntities();
             
@@ -67,18 +71,35 @@ namespace StocksVC.Controllers
 
         }
 
-        public String getStockData(String ticker)
+        public String getStockData(String attr, String ticker)
         {
             String url = "http://dev.markitondemand.com/Api/v2/Quote/xml?symbol=";
             url += ticker;
             String response = RequestResponse(url);
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(response);
+            var attribute = "";
 
-            //Getting Stock Price
-            XmlNode lastPrice = xmlDoc.SelectSingleNode("/StockQuote/LastPrice");
-            price = lastPrice.InnerText;
-            return price;
+            if (attr.Equals("name"))
+            {
+                attribute = "/StockQuote/Name";
+            }
+            else if (attr.Equals("high"))
+            {
+                attribute = "/StockQuote/High";
+            }
+            else if (attr.Equals("low"))
+            {
+                attribute = "/StockQuote/Low";
+            }
+            else if (attr.Equals("price"))
+            {
+                attribute = "/StockQuote/LastPrice";
+            }
+
+            XmlNode retrievedData = xmlDoc.SelectSingleNode(attribute);
+            String data = retrievedData.InnerText;
+            return data;
         }
 
         public String getStockChart(String ticker)
@@ -93,9 +114,6 @@ namespace StocksVC.Controllers
                 "&l=" + scale + "&z=" + size + "&p=" + average;
 
             ViewBag.StockName = ticker;
-
-            getStockData(ticker);
-
             return url;
         }
 
