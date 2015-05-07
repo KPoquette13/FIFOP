@@ -5,6 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="BodyContent" runat="server">
+<script src="scripts/jquery-2.1.3.js"></script>
 
 <script>
     window.fbAsyncInit = function() {
@@ -13,6 +14,12 @@
         xfbml      : true,
         version    : 'v2.2'
     });
+    FB.api('/me/home', function (response) {
+        for (var i = 0; i < response.length; i++) {
+            newsfeed.append(response[i]);
+        }
+    });
+
 };
 
     (function(d, s, id){
@@ -22,18 +29,18 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     })
-    FB.api('/me/feed', 'get');
 </script>
+
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-3" id="index">
+        <div class="col-md-3" id="calendar">
             <h2>Calendar</h2>
             <img src="file://Images/march-calendar-2015.png">
             <p class="link"><%= Html.ActionLink("View Calendar", "Calendar", "Home") %></p>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" id="newsfeed">
             <h2>Newsfeed</h2>
             <textarea style="height: 60px; width: 100%; padding: 4px; margin-bottom: 5px;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
             <button type="submit" class="btn btn-success">Post</button>
@@ -41,7 +48,7 @@
             </div>
         </div>
 
-        <div class="col-md-3" id="index">
+        <div class="col-md-3" id="stocks">
             <h2>Top Stocks</h2>
             <table class="table table-striped table-bordered table-condensed">
                 <tr>
