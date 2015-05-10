@@ -226,15 +226,10 @@ div .rightPanel {
 
 /* menu
 ----------------------------------------------------------*/
-.float-left h1 a {
+.float-left h1 {
     margin-left: 20px;
     color: #fff;
-    text-decoration: none;
 }
-
-    .float-left h1 a:hover {
-        background: none;
-    }
 
 ul#menu {
     font-size: 2em;
@@ -256,11 +251,9 @@ ul#menu {
         }
 
         ul#menu li a:hover {
-            color: #ccfaff;
+            color: #333;
             text-decoration: none;
         }
-
-
 
 
 /* page elements
