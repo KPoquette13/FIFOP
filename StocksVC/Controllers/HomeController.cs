@@ -44,7 +44,9 @@ namespace StocksVC.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            var entities = new StocksDBEntities();
+
+            return View(entities.StockInfos.ToList());
         }
         public ActionResult Login()
         {
@@ -53,13 +55,16 @@ namespace StocksVC.Controllers
 
         public ActionResult IndividualStock(String ticker)
         {
-            ViewBag.Ticker = ticker;           
+            ViewBag.Ticker = ticker;
             ViewBag.Image = getStockChart(ticker);
-            ViewBag.StockPrice = getStockData(ticker);
+            ViewBag.StockPrice = getStockData("price", ticker);
+            ViewBag.StockFullName = getStockData("name", ticker);
+            ViewBag.StockHigh = getStockData("high", ticker);
+            ViewBag.StockLow = getStockData("low", ticker);
 
             var entities = new StocksDBEntities();
-            
-            var stock = from item in entities.StockInfos 
+
+            var stock = from item in entities.StockInfos
                         where item.StockName.Equals(ticker)
                         select item;
 
@@ -67,30 +72,35 @@ namespace StocksVC.Controllers
 
         }
 
-        public String getStockData(String ticker)
+        public String getStockData(String attr, String ticker)
         {
             String url = "http://dev.markitondemand.com/Api/v2/Quote/xml?symbol=";
             url += ticker;
             String response = RequestResponse(url);
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(response);
+            var attribute = "";
 
-            //Getting Stock Price
-            XmlNode lastPrice = xmlDoc.SelectSingleNode("/StockQuote/LastPrice");
-            price = lastPrice.InnerText;
-            return price;
-        }
+            if (attr.Equals("name"))
+            {
+                attribute = "/StockQuote/Name";
+            }
+            else if (attr.Equals("high"))
+            {
+                attribute = "/StockQuote/High";
+            }
+            else if (attr.Equals("low"))
+            {
+                attribute = "/StockQuote/Low";
+            }
+            else if (attr.Equals("price"))
+            {
+                attribute = "/StockQuote/LastPrice";
+            }
 
-        public JsonResult Buy(StocksVC.Models.StockInfo stock)
-        {
-            StocksDBEntities db = new StocksDBEntities();
-            StockInfo stockInfo = db.StockInfos.Where(x => x.StockName == stock.StockName).FirstOrDefault();
-            
-            stockInfo.TotalBought = stockInfo.TotalBought + stock.TotalBought;
-
-            db.SaveChanges();
-
-            return Json(stockInfo, JsonRequestBehavior.AllowGet);
+            XmlNode retrievedData = xmlDoc.SelectSingleNode(attribute);
+            String data = retrievedData.InnerText;
+            return data;
         }
 
 
@@ -106,9 +116,6 @@ namespace StocksVC.Controllers
                 "&l=" + scale + "&z=" + size + "&p=" + average;
 
             ViewBag.StockName = ticker;
-
-            getStockData(ticker);
-
             return url;
         }
 

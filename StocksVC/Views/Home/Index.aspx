@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<StocksVC.Models.StockInfo>>" %>
+﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<StocksVC.Models.StockInfo>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
@@ -37,13 +37,12 @@
                         <%: Html.DisplayNameFor(model => model.Thoughts) %>
                     </th>
                 </tr>
-
+               
                 <% for (var item = 0; item < 5; item ++)
                 { %>
                 <tr>
                     <td>
-                        <% var name = Html.DisplayFor(modelItem => Model.ElementAt(item).StockName).ToString(); %>
-                        <%= name %>
+                        <%: Html.DisplayFor(modelItem => Model.ElementAt(item).StockName) %>
                     </td>
                     <td>
                         <%: Html.DisplayFor(modelItem => Model.ElementAt(item).Price)%>
@@ -53,6 +52,7 @@
                     </td>
                 </tr>
                 <% } %>
+            
             </table>
             <p class="link"><%= Html.ActionLink("View More Stock Info...", "AllStocks", "Home") %></p>
         </div>
