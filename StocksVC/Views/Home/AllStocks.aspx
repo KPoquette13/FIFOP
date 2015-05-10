@@ -40,7 +40,7 @@
                 </tr>
 
                 <% foreach (var item in Model)
-                   { %>
+                   { if (item.TotalBought != item.TotalSold) { %>
                 <tr>
                     <td>
                         <% var name = Html.DisplayFor(modelItem => item.StockName).ToString(); %>
@@ -62,7 +62,7 @@
                         <%= Html.ActionLink("View", "IndividualStock", new { ticker = name })%>
                     </td>
                 </tr>
-                <% } %>
+                <% } }%>
             </table>
 
         </div>
