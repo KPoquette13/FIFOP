@@ -265,11 +265,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\fullcalendar.css" />
-    <Content Include="Content\fullcalendar.min.css" />
-    <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -325,8 +320,6 @@
       <LastGenOutput>StockInfosDBModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\fullcalendar.js" />
-    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -353,12 +346,9 @@
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Views\Home\AllStocks.aspx" />
-    <Content Include="Views\Home\Calendar.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Home\IndividualStock.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -389,6 +379,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Shared\Site.cshtml" />
