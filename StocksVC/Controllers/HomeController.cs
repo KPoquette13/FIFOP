@@ -102,6 +102,19 @@ namespace StocksVC.Controllers
             return data;
         }
 
+        public JsonResult Buy(StocksVC.Models.StockInfo stock)
+        {
+            StocksDBEntities db = new StocksDBEntities();
+            StockInfo stockInfo = db.StockInfos.Where(x => x.StockName == stock.StockName).FirstOrDefault();
+            
+            stockInfo.TotalBought = stockInfo.TotalBought + stock.TotalBought;
+
+            db.SaveChanges();
+
+            return Json(stockInfo, JsonRequestBehavior.AllowGet);
+        }
+
+
         public String getStockChart(String ticker)
         {
             String time = "6m";

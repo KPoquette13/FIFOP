@@ -169,8 +169,61 @@ div .rightPanel {
         font-size: 1em;
     }
 
-#index {
+#index, #indexEvent, #indexCalendar, #indexStocks {
     border: 1px solid #e2e2e2;
+}
+
+    #indexEvent {
+        padding-bottom:10px;
+    }
+
+
+#buy-modal-container {
+    height: 480px;
+    width: 500px;
+    background-color: white;
+    margin-left: 30%;
+}
+
+#sell-modal-container {
+    height: 380px;
+    width: 500px;
+    background-color: white;
+    margin-left: 30%;
+}
+
+#buy_quantity, #sell_quantity {
+    width: 200px;
+}
+
+#stockInfoQuantity {
+    width: 25%;
+}
+
+#stockInfoThoughts {
+    width: 75%;
+    height: 50px;
+}
+
+#calendar {
+    width: 900px;
+            }
+
+.fc button {
+    width: 100px;
+    font-size: 1.8em;
+}
+
+#stockLookup {
+    padding-bottom:20px;
+}
+
+#buyOrSell {
+    margin-top:50px;
+}
+
+#end {
+    margin-bottom: 20px;
 }
 
 /* site title

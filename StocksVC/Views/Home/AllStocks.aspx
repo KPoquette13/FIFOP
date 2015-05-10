@@ -5,19 +5,9 @@
 </asp:Content>
 
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="BodyContent">
-        <script>
-            $(document).ready(function () {
-                $('input[name="stock_name"]').change(function () {
-                    $('#stockSearch').click(function () {
-                        location.href = '/Home/IndividualStock?ticker=' +
-                        $('input[name="stock_name"]').val();
-                    });
-                });
-            });
-        </script>
 
         <div class="col-lg-3 col-lg-offset-2" id="index">
-            <form role="form" style="padding-bottom:20px;">
+            <form role="form" id="stockLookup">
                 <h2>Stock Lookup</h2>
                 <label for="stock_name"><p>Stock Name:</p></label> 
                 <input type="text"name="stock_name" /> 

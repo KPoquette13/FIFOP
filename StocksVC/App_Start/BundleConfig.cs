@@ -19,7 +19,8 @@ namespace StocksVC
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/moment.min.js",
-                        "~/Scripts/fullCalendar.js"));
+                        "~/Scripts/fullCalendar.js", 
+                        "~/Scripts/Site.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -27,12 +28,11 @@ namespace StocksVC
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/bootstrap-theme.min.css",
                         "~/Content/bootstrap.css",
                         "~/Content/bootstrap-theme.css",
-                        "~/Content/site.css",
                         "~/Content/fullcalendar.css",
-                        "~/Content/font-awesome.css"));
+                        "~/Content/font-awesome.css",
+                        "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

@@ -6,18 +6,6 @@
 </asp:Content>
 
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="BodyContent">
-    <style>
-        #buy-modal-container, #sell-modal-container {
-            height: 400px;
-            width: 500px;
-            background-color: white;
-            margin-left: 30%;
-        }
-
-        #buy_quantity, #sell_quantity {
-            width: 200px;
-        }
-    </style>
 
         <div class="col-lg-6 col-lg-offset-2">
             <h1>Stock Description</h1>
@@ -117,7 +105,7 @@
                 <% } %> 
             </table>
         </div>
-        <div class="col-md-8 col-md-offset-3" style="margin-top:50px;">
+        <div class="col-md-8 col-md-offset-3" id="buyOrSell">
             <div class="col-md-2">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buy-modal-container">Buy</button>
             </div>
@@ -142,48 +130,36 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h2 class="modal-title">Buy New Stocks</h2>
             </div>
-            <form role="form" id="form1" method="post" runat="server">
-                <% if (!Model.Any()) 
-                  { %>
+            <% using (Html.BeginForm(null, null, FormMethod.Post, new { id = "newStockForm" }))
+               {  %>
+                <fieldset>
                     <div class="modal-body">
                         <p class="validateTips">All form fields are required.</p>
                         <div class="form-group">
                             <label for="buy_name">Stock Name:</label>
-                            <p><%= ViewBag.StockName %></p>
+                            <p id="stockInfoSymbol"><%= ViewBag.StockName%></p>
                         </div>
                         <div class="form-group">
                             <label for="buy_price">Stock Price:</label>
-                            <p><%= ViewBag.StockPrice %></p>
+                            <p id="stockInfoPrice"><%= ViewBag.StockPrice%></p>
                         </div>
-                        <div class="form-group">
-                            <label for="buy_quantity">Quantity:</label>
-                            <input type="text"/>
+                        <p><strong>Quantity</strong></p>
+                        <div class="editor-field">
+                            <p><input type="number" id="stockInfoQuantity"/></p>
                         </div>
-                    </div>
-                <% } %>
-                <% foreach (var item in Model)
-                  { %>
-                <div class="modal-body">
-                    <p class="validateTips">All form fields are required.</p>
-                    <div class="form-group">
-                        <label for="buy_name">Stock Name:</label>
-                        <p><%= ViewBag.StockName %></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="buy_price">Stock Price:</label>
-                        <p><%= ViewBag.StockPrice %></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="buy_quantity">Quantity:</label>
-                        <input type="text"/>
-                    </div>
+                        <div class="editor-label">
+                            <p><strong>Thoughts</strong></p>
+                        </div>
+                        <div class="editor-field">
+                            <textarea id="stockInfoThoughts"></textarea>
+                        </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Buy</button>
+                    <button type="button" id="submitBuy" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Buy</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 </div>
-                <% } %>
-            </form>
+                </fieldset>
+            <% } %>
     </div>
 
     <div id="sell-modal-container" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -193,26 +169,26 @@
         </div>
         <div class="modal-body">
             <p class="validateTips">All form fields are required.</p>
-            <form role="form" id="form2">
+             <% using (Html.BeginForm(null, null, FormMethod.Post, new { id = "newSellForm" }))
+               {  %>
                 <div class="form-group">
-                    <label for="sell_name">Stock Name:</label>
-                    <p><%= ViewBag.StockName %></p>
+                    <label for="buy_name">Stock Name:</label>
+                    <p id="stockInfoSymbolSell"><%= ViewBag.StockName%></p>
                 </div>
                 <div class="form-group">
-                    <label for="sell_price">Stock Price:</label>
-                    <p> <%= ViewBag.StockPrice %> </p>
+                    <label for="buy_price">Stock Price:</label>
+                    <p id="stockInfoPriceSell"><%= ViewBag.StockPrice%></p>
                 </div>
-                <div class="form-group">
-                    <label for="sell_quantity">Quantity:</label>
-                    <input type="text" name="quantity" id="sell_quantity" class="form-control">
+                <p><strong>Quantity</strong></p>
+                <div class="editor-field">
+                    <p><input type="number" id="stockInfoQuantitySell"/></p>
                 </div>
-            </form>
-
+            <% } %>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Sell</button>
+            <button type="button" id="submitSell" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Sell</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
         </div>
-        </div>  
+    </div>  
 
 </asp:Content>
