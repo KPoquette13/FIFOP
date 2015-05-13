@@ -51,35 +51,13 @@
 
     $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next, today',
+            left: 'prev,next today',
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
         defaultDate: '2015-05-12',
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        eventRender: function(event, element) {
-            
-        },
-        events: [
-            {
-                title: 'Presentation',
-                start: '2015-05-11',
-                end: '2015-05-12'
-            },
-            {
-                title: 'Lunch',
-                start: '2015-05-16T11:30:00',
-                end: '2015-05-16T12:30:00',
-                allDay: false
-            },
-            {
-                title: 'Hiking Trip',
-                start: '2015-05-14'
-            }
-        ]
-        
 
     });
-
 });

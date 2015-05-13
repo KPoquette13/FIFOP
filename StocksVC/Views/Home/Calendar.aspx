@@ -18,7 +18,7 @@
             <input id="start" type="text" />
             <p>End:</p>
             <input id="end" type="text" />
-            <button class="btn btn-primary" id="add-event">Go!</button>
+            <button class="btn btn-primary">Go!</button>
         </div>
 
         <div id="calendar" class="col-lg-8">
